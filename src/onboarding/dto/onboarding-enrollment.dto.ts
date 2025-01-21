@@ -1,4 +1,6 @@
-import { IsEmail, IsInt, IsString, Length } from "class-validator";
+import { IsEmail, IsInt, IsString, Length, Validate } from "class-validator";
+import { isUnique } from "src/validation/is-unique";
+import { IsUniqueConstraint } from "src/validation/is-unique-constraint";
 
 export class OnboardingEnrollmentDto {
 
@@ -7,9 +9,11 @@ export class OnboardingEnrollmentDto {
     accountNumber: string;
 
     @IsString()
-    userName: string;
+    @isUnique({ tableName: 'onboarding', column: 'username'})
+    username: string;
 
     @IsEmail()
+    @isUnique({ tableName: 'onboarding', column: 'email'})
     email: string;
 
     @IsString()
