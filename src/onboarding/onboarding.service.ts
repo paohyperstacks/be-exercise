@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Onboarding } from 'src/entities/onboarding.entity';
 import { Repository } from 'typeorm';
@@ -28,8 +28,12 @@ export class OnboardingService {
     async enrollment(body: OnboardingEnrollmentDto) {
         const { accountNumber } = body
         const response = await this.cbsAccount(accountNumber)
-        if(response.status === "ACTIVE"){
-            return await this.onboardingRepository.save(body)   
+        if(response.status !== "ACTIVE"){
+            throw new BadRequestException(`${accountNumber} is not Active.`)
         }
+        
+        const user = this.onboardingRepository.create(body)
+        return await this.onboardingRepository.save(user)
+
     }
 }

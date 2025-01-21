@@ -4,15 +4,21 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { OnboardingModule } from './onboarding/onboarding.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { pgConfig } from 'dbConfig';
+import { IsUniqueConstraint } from './validation/is-unique-constraint';
+import dbConfig from './config/db.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), 
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      load: [dbConfig]
+    }), 
     OnboardingModule,
-    TypeOrmModule.forRoot(pgConfig)
+    TypeOrmModule.forRootAsync({
+      useFactory: dbConfig,
+    })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, IsUniqueConstraint],
 })
 export class AppModule {}
