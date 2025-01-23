@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { OnboardingModule } from './onboarding/onboarding.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IsUniqueConstraint } from './validation/is-unique-constraint';
+import { AuthModule } from './auth/auth.module';
 import dbConfig from './config/db.config';
 
 @Module({
@@ -16,7 +17,8 @@ import dbConfig from './config/db.config';
     OnboardingModule,
     TypeOrmModule.forRootAsync({
       useFactory: dbConfig,
-    })
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService, IsUniqueConstraint],

@@ -24,4 +24,6 @@ export class OnboardingEnrollmentDto {
 
     @IsString()
     name: string;
+
+    hashedRefreshToken: string;
 }

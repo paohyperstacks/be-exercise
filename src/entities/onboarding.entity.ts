@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -25,8 +25,14 @@ export class Onboarding {
     @Column()
     email: string;
 
+    @Column({nullable: true})
+    hashedRefreshToken: string;
+
     @BeforeInsert()
+    @BeforeUpdate()
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10)
     }
+
+
 }
