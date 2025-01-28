@@ -6,19 +6,23 @@ import { OnboardingModule } from './onboarding/onboarding.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IsUniqueConstraint } from './validation/is-unique-constraint';
 import { AuthModule } from './auth/auth.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { PaymentsModule } from './payments/payments.module';
 import dbConfig from './config/db.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ 
+    ConfigModule.forRoot({
       isGlobal: true,
-      load: [dbConfig]
-    }), 
+      load: [dbConfig],
+    }),
     OnboardingModule,
     TypeOrmModule.forRootAsync({
       useFactory: dbConfig,
     }),
-    AuthModule
+    AuthModule,
+    AccountsModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, IsUniqueConstraint],
