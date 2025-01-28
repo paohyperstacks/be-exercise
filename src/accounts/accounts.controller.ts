@@ -9,13 +9,12 @@ export class AccountsController {
   @UseGuards(JwtAuthGuard)
   @Get('inquiry')
   accountInquiry(@Req() req) {
-    return this.accountsService.accountInquiry(req.user.id)
+    return this.accountsService.accountInquiry(req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('transactions')
   accountTransactions(@Req() req) {
-    return this.accountsService.accountTransactions(req.user.id)
+    return this.accountsService.accountTransactions(req.user.id);
   }
-
 }

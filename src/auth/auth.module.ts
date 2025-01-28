@@ -19,9 +19,15 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
     ConfigModule.forFeature(jwtConfig),
     ConfigModule.forFeature(refreshJwtConfig),
     TypeOrmModule.forFeature([Onboarding]),
-    HttpModule
+    HttpModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, OnboardingService, LocalStrategy, JwtStrategy, RefreshTokenStrategy],
+  providers: [
+    AuthService,
+    OnboardingService,
+    LocalStrategy,
+    JwtStrategy,
+    RefreshTokenStrategy,
+  ],
 })
 export class AuthModule {}
