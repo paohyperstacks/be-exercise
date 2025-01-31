@@ -16,6 +16,12 @@ export class AuthService {
     private refreshTokenConfig: ConfigType<typeof refreshJwtConfig>,
   ) {}
 
+  async isActive(username: string) {
+    const user = await this.onboardingService.findByUserOrEmail(username)
+    const checkAccount = await this.onboardingService.cbsAccount(user.accountNumber)
+    return checkAccount
+  }
+
   async validateUser(username: string, password: string) {
     const user = await this.onboardingService.findByUserOrEmail(username);
     if (!user) throw new UnauthorizedException();

@@ -27,7 +27,6 @@ export class OnboardingService {
       const response = await firstValueFrom(this.httpService.get(url));
       return response.data;
     } catch (error) {
-      console.log(error.response);
       return error.response.data;
     }
   }
